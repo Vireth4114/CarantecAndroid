@@ -29,7 +29,7 @@ class InsertMember : AppCompatActivity() {
         ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
-            arrayOf("adulte", "enfant")
+            arrayOf(resources.getString(R.string.adult), resources.getString(R.string.child))
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.pricing.adapter = adapter

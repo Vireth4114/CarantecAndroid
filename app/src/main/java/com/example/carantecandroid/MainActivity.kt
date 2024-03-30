@@ -51,7 +51,7 @@ class MainActivity : ComponentActivity() {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Button({context.startActivity(Intent(context, InsertMember::class.java))},
                             Modifier.padding(10.dp)) {
-                            Text("Insérer un membre", fontSize = 20.sp)
+                            Text(context.resources.getString(R.string.insert_member), fontSize = 20.sp)
                         }
                         // Try to display the API request, otherwise select in DDB
                         if (state.value != null) {
@@ -60,7 +60,7 @@ class MainActivity : ComponentActivity() {
                             if (stateBDD.value != null) {
                                 TableMembers(stateBDD.value!!)
                             } else {
-                                Text("Loading...")
+                                Text(context.resources.getString(R.string.loading))
                             }
                         }
                     }
@@ -72,14 +72,16 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun TableMembers(members: List<Member>) {
+    val context = LocalContext.current
+
     Row(Modifier.verticalScroll(rememberScrollState())
                 .horizontalScroll(rememberScrollState())
                 .padding(10.dp)) {
-        ColumnAttribute(members, "id", "Id")
-        ColumnAttribute(members, "licence", "Licence")
-        ColumnAttribute(members, "name", "Nom")
-        ColumnAttribute(members, "surname", "Prénom")
-        ColumnAttribute(members, "dives", "Plongées Restantes")
+        ColumnAttribute(members, "id", context.resources.getString(R.string.id))
+        ColumnAttribute(members, "licence", context.resources.getString(R.string.license))
+        ColumnAttribute(members, "name", context.resources.getString(R.string.name))
+        ColumnAttribute(members, "surname", context.resources.getString(R.string.surname))
+        ColumnAttribute(members, "dives", context.resources.getString(R.string.remaining_dives))
     }
 }
 

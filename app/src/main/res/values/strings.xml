@@ -1,3 +1,22 @@
 <resources>
-    <string name="app_name">CarantecAndroid</string>
+    <string name="app_name">Carantec</string>
+    <string name="name">Prénom</string>
+    <string name="surname">Nom</string>
+    <string name="license">Licence</string>
+    <string name="nameLabel">Prénom : </string>
+    <string name="surnameLabel">Nom : </string>
+    <string name="licenseLabel">Licence : </string>
+    <string name="dateLabel">Date : </string>
+    <string name="passwordLabel">Mot de passe : </string>
+    <string name="pricingLabel">Forfait : </string>
+    <string name="password">Mot de passe</string>
+    <string name="id">Id</string>
+    <string name="remaining_dives">Plongées restantes</string>
+    <string name="certification_date">Date de certification</string>
+    <string name="adult">Adulte</string>
+    <string name="child">Enfant</string>
+    <string name="add_member">Ajouter le membre</string>
+    <string name="return_to_list">Revenir à la liste</string>
+    <string name="insert_member">Insérer un membre</string>
+    <string name="loading">Chargement...</string>
 </resources>
