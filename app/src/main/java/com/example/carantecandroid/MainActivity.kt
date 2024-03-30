@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.horizontalScroll
@@ -26,23 +25,24 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.example.carantecandroid.ui.theme.CarantecAndroidTheme
-import org.json.JSONArray
-import org.json.JSONObject
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val modelRequest = ViewModelProvider(this)[ModelRequest::class.java]
         setContent {
             val context = LocalContext.current
+            val state = modelRequest.getResult().observeAsState()
+            val stateBDD = modelRequest.getRoomResult().observeAsState()
+            modelRequest.doRequest("https://dev-sae301grp5.users.info.unicaen.fr/api/members", "GET")
             CarantecAndroidTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -53,11 +53,15 @@ class MainActivity : ComponentActivity() {
                             Modifier.padding(10.dp)) {
                             Text("Insérer un membre", fontSize = 20.sp)
                         }
-                        val modelRequest: ModelRequest by viewModels()
-                        val state = modelRequest.getResult().observeAsState()
-                        modelRequest.doRequest("https://dev-sae301grp5.users.info.unicaen.fr/api/members", "GET")
+                        // Try to display the API request, otherwise select in DDB
                         if (state.value != null) {
-                            TableMembers(json = JSONObject(state.value!!))
+                            TableMembers(state.value!!)
+                        } else {
+                            if (stateBDD.value != null) {
+                                TableMembers(stateBDD.value!!)
+                            } else {
+                                Text("Loading...")
+                            }
                         }
                     }
                 }
@@ -67,29 +71,31 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun TableMembers(json: JSONObject) {
+fun TableMembers(members: List<Member>) {
     Row(Modifier.verticalScroll(rememberScrollState())
                 .horizontalScroll(rememberScrollState())
                 .padding(10.dp)) {
-        val data = json.getJSONArray("data")
-        ColumnAttribute(data, "id", false, "Id")
-        ColumnAttribute(data, "licence", true, "Licence")
-        ColumnAttribute(data, "name", true, "Nom")
-        ColumnAttribute(data, "surname", true, "Prénom")
-        ColumnAttribute(data, "remaining_dives", true, "Plongées Restantes")
+        ColumnAttribute(members, "id", "Id")
+        ColumnAttribute(members, "licence", "Licence")
+        ColumnAttribute(members, "name", "Nom")
+        ColumnAttribute(members, "surname", "Prénom")
+        ColumnAttribute(members, "dives", "Plongées Restantes")
     }
 }
 
 @Composable
-fun ColumnAttribute(data: JSONArray, attribute: String, isAttribute: Boolean, title: String = attribute) {
+fun ColumnAttribute(members: List<Member>, attribute: String, title: String = attribute) {
     Column(
         Modifier.width(intrinsicSize = IntrinsicSize.Max)) {
         Text(title, textAlign = TextAlign.Center, fontWeight = FontWeight.Bold, modifier = Modifier.fillMaxWidth().background(Color(255, 128, 128)).border(1.dp, Color.Black).padding(5.dp))
-        for (i in 0 until data.length())
-            Text(if (isAttribute)
-                    data.getJSONObject(i).getJSONObject("attributes").getString(attribute)
-                else
-                    data.getJSONObject(i).getString(attribute),
+        for (i in members.indices)
+            Text(when (attribute) {
+                     "id" -> members[i].id
+                     "licence" -> members[i].licence
+                     "name" -> members[i].name
+                     "surname" -> members[i].surname
+                     else -> members[i].dives
+                }.toString(),
                 textAlign = TextAlign.Center,
                 modifier = Modifier.background(
                             if (i % 2 == 1) Color(0,0,0,20)

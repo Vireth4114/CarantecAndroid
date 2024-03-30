@@ -1,14 +1,12 @@
 package com.example.carantecandroid
 
-import android.R
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.ArrayAdapter
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.carantecandroid.databinding.ActivityInsertMemberBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -20,6 +18,7 @@ class InsertMember : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val modelRequest = ViewModelProvider(this)[ModelRequest::class.java]
 
         binding = ActivityInsertMemberBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -29,12 +28,10 @@ class InsertMember : AppCompatActivity() {
 
         ArrayAdapter(
             this,
-            R.layout.simple_spinner_item,
+            android.R.layout.simple_spinner_item,
             arrayOf("adulte", "enfant")
         ).also { adapter ->
-            // Specify the layout to use when the list of choices appears.
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner.
             binding.pricing.adapter = adapter
         }
 
@@ -46,9 +43,22 @@ class InsertMember : AppCompatActivity() {
                 binding.password.text.isEmpty())
                 return@setOnClickListener
 
-            val modelRequest: ModelRequest by viewModels()
-
             val isoFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+            //Add in both API and DDB
+
+            Thread {
+                val newMember = Member(
+                    licence = binding.licence.text.toString(),
+                    name = binding.name.text.toString(),
+                    surname = binding.surname.text.toString(),
+                    dives = 99,
+                    date = binding.date.text.toString(),
+                    subdate = isoFormatter.format(Date()),
+                    pricing = binding.pricing.selectedItem.toString()
+                )
+                modelRequest.base.memberDAO().insertOne(newMember)
+            }.start()
 
             modelRequest.doRequest("https://dev-sae301grp5.users.info.unicaen.fr/api/members?" +
                                     "licence=" + binding.licence.text + "&" +
@@ -58,6 +68,13 @@ class InsertMember : AppCompatActivity() {
                                     "pricing=" + binding.pricing.selectedItem.toString() + "&" +
                                     "password=" + binding.password.text + "&" +
                                     "subdate=" + isoFormatter.format(Date()), "POST")
+
+            binding.licence.text.clear()
+            binding.name.text.clear()
+            binding.surname.text.clear()
+            binding.date.text = "DATE DE CERTIFICATION"
+            binding.pricing.setSelection(0)
+            binding.password.text.clear()
         }
 
         val pickDateBtn = binding.date
@@ -71,8 +88,8 @@ class InsertMember : AppCompatActivity() {
 
             val datePickerDialog = DatePickerDialog(
                 this,
-                { _, year, myMonth, myDay ->
-                    pickDateBtn.text = year.toString() + "-" + (myMonth + 1) + "-" + myDay.toString()
+                { _, myYear, myMonth, myDay ->
+                    pickDateBtn.text = myYear.toString() + "-" + (myMonth + 1) + "-" + myDay.toString()
                 },
                 year,
                 month,
