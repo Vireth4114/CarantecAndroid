@@ -13,11 +13,12 @@ class ModelRequest: ViewModel() {
 
     fun getResult() : LiveData<String> = liveData
 
-    fun doRequest(): LiveData<String> {
+    fun doRequest(url: String, method: String): LiveData<String> {
         Thread {
-            val urlRequest = URL("https://dev-sae301grp5.users.info.unicaen.fr/api/members")
+            val urlRequest = URL(url)
             try {
                 val conn = urlRequest.openConnection() as HttpsURLConnection
+                conn.requestMethod = method;
                 conn.connect()
                 if (conn.responseCode != 200) {
                     liveData.postValue("Http error in connection (error code : ${conn.responseCode})")
