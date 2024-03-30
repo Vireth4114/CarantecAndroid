@@ -1,10 +1,12 @@
 package com.example.carantecandroid
 
+import android.R
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.carantecandroid.databinding.ActivityInsertMemberBinding
@@ -25,12 +27,22 @@ class InsertMember : AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
         }
 
+        ArrayAdapter(
+            this,
+            R.layout.simple_spinner_item,
+            arrayOf("adulte", "enfant")
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears.
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner.
+            binding.pricing.adapter = adapter
+        }
+
         binding.addButton.setOnClickListener {
             if (binding.licence.text.isEmpty() ||
                 binding.name.text.isEmpty() ||
                 binding.surname.text.isEmpty() ||
                 binding.date.text.isEmpty() ||
-                binding.pricing.text.isEmpty() ||
                 binding.password.text.isEmpty())
                 return@setOnClickListener
 
@@ -43,7 +55,7 @@ class InsertMember : AppCompatActivity() {
                                     "name=" + binding.name.text + "&" +
                                     "surname=" + binding.surname.text + "&" +
                                     "date_certification=" + binding.date.text + "&" +
-                                    "pricing=" + binding.pricing.text + "&" +
+                                    "pricing=" + binding.pricing.selectedItem.toString() + "&" +
                                     "password=" + binding.password.text + "&" +
                                     "subdate=" + isoFormatter.format(Date()), "POST")
         }

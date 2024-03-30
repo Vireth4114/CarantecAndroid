@@ -12,48 +12,68 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Revenir à la liste"
-        android:textSize="20sp"
+        android:textSize="15sp"
+        android:background="@drawable/bg_button"
+        android:textColor="@color/white"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.948" />
 
+    <TextView
+        android:id="@+id/passwordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mot de passe : "
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.585" />
+
     <Button
         android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ajout du membre"
-        android:textSize="20sp"
+        android:textSize="15sp"
+        android:background="@drawable/bg_button"
+        android:textColor="@color/white"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/goBackButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.442" />
+        app:layout_constraintVertical_bias="0.26" />
 
     <TextView
         android:id="@+id/licenceLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Licence : "
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.196"
+        app:layout_constraintHorizontal_bias="0.194"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.176" />
+        app:layout_constraintVertical_bias="0.113" />
 
     <EditText
         android:id="@+id/licence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="text"
         android:hint="Licence"
+        android:inputType="text"
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="@+id/licenceLabel"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.304"
         app:layout_constraintStart_toEndOf="@+id/licenceLabel"
         app:layout_constraintTop_toTopOf="@+id/licenceLabel" />
 
@@ -62,50 +82,53 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Prénom : "
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.196"
+        app:layout_constraintHorizontal_bias="0.195"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.276" />
+        app:layout_constraintVertical_bias="0.203" />
 
     <EditText
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="text"
         android:hint="Prénom"
+        android:inputType="text"
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="@+id/nameLabel"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.3"
         app:layout_constraintStart_toEndOf="@+id/nameLabel"
-        app:layout_constraintTop_toTopOf="@+id/nameLabel" />
+        app:layout_constraintTop_toTopOf="@+id/nameLabel"
+        app:layout_constraintVertical_bias="0.535" />
 
     <TextView
         android:id="@+id/surnameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nom : "
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.257"
+        app:layout_constraintHorizontal_bias="0.241"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.376" />
+        app:layout_constraintVertical_bias="0.291" />
 
     <EditText
         android:id="@+id/surname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="text"
         android:hint="Nom"
+        android:inputType="text"
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="@+id/surnameLabel"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.289"
         app:layout_constraintStart_toEndOf="@+id/surnameLabel"
         app:layout_constraintTop_toTopOf="@+id/surnameLabel" />
 
@@ -114,72 +137,66 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Date : "
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.257"
+        app:layout_constraintHorizontal_bias="0.241"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.476" />
+        app:layout_constraintVertical_bias="0.386" />
 
     <Button
         android:id="@+id/date"
         android:layout_width="210dp"
         android:layout_height="45dp"
+        android:text="Date de certification"
+        android:textAlignment="textStart"
         app:layout_constraintBottom_toBottomOf="@+id/dateLabel"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.3"
         app:layout_constraintStart_toEndOf="@+id/dateLabel"
-        app:layout_constraintTop_toTopOf="@+id/dateLabel" />
+        app:layout_constraintTop_toTopOf="@+id/dateLabel"
+        app:layout_constraintVertical_bias="0.48" />
 
     <TextView
         android:id="@+id/pricingLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Forfait : "
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.216"
+        app:layout_constraintHorizontal_bias="0.218"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.576" />
+        app:layout_constraintVertical_bias="0.485" />
 
-    <EditText
+    <Spinner
         android:id="@+id/pricing"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="212dp"
+        android:layout_height="41dp"
         android:ems="10"
         android:inputType="text"
-        android:hint="Forfait"
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="@+id/pricingLabel"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.298"
         app:layout_constraintStart_toEndOf="@+id/pricingLabel"
-        app:layout_constraintTop_toTopOf="@+id/pricingLabel" />
-
-    <TextView
-        android:id="@+id/passwordLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Mot de passe : "
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.04"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.676" />
+        app:layout_constraintTop_toTopOf="@+id/pricingLabel"
+        app:layout_constraintVertical_bias="0.523" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPassword"
         android:hint="Mot de passe"
+        android:inputType="textPassword"
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="@+id/passwordLabel"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.289"
         app:layout_constraintStart_toEndOf="@+id/passwordLabel"
-        app:layout_constraintTop_toTopOf="@+id/passwordLabel" />
+        app:layout_constraintTop_toTopOf="@+id/passwordLabel"
+        app:layout_constraintVertical_bias="0.464" />
 </androidx.constraintlayout.widget.ConstraintLayout>
